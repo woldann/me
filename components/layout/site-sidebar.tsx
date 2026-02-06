@@ -39,7 +39,10 @@ export function SiteSidebar({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+      <SheetContent
+        side="left"
+        className="flex h-[100dvh] w-[300px] flex-col overflow-y-auto sm:w-[400px]"
+      >
         <SheetHeader className="mb-6 text-left">
           <SheetTitle className="sr-only">Mobile Menu</SheetTitle>{" "}
           {/* Accessibility */}
@@ -65,7 +68,7 @@ export function SiteSidebar({
           </Link>
         </nav>
 
-        <div className="absolute right-6 bottom-8 left-6 mt-auto">
+        <div className="mt-auto pb-8">
           <div className="border-t pt-8">
             <p className="text-muted-foreground mb-4 text-sm">Languages</p>
             <div className="flex flex-wrap gap-2">
