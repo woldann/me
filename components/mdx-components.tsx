@@ -62,7 +62,7 @@ const ComparisonTable = ({
       <TableHeader>
         <TableRow className="bg-secondary/30">
           {headers.map((header, i) => (
-            <TableHead key={i} className="font-bold text-foreground">
+            <TableHead key={i} className="text-foreground font-bold">
               {header}
             </TableHead>
           ))}
@@ -301,10 +301,12 @@ export const mdxComponents = {
       iconName = "alert-octagon";
     } else if (type === "warning") {
       iconName = "alert-triangle";
-      customClass = "border-amber-500/50 text-amber-600 dark:text-amber-500 [&>svg]:text-amber-600 dark:[&>svg]:text-amber-500";
+      customClass =
+        "border-amber-500/50 text-amber-600 dark:text-amber-500 [&>svg]:text-amber-600 dark:[&>svg]:text-amber-500";
     } else if (type === "success") {
       iconName = "check-circle";
-      customClass = "border-emerald-500/50 text-emerald-600 dark:text-emerald-500 [&>svg]:text-emerald-600 dark:[&>svg]:text-emerald-500";
+      customClass =
+        "border-emerald-500/50 text-emerald-600 dark:text-emerald-500 [&>svg]:text-emerald-600 dark:[&>svg]:text-emerald-500";
     }
 
     const IconComponent = getDynamicIcon(iconName);
@@ -327,11 +329,11 @@ export const mdxComponents = {
     children: React.ReactNode;
   }) => (
     <div className="my-8 flex gap-4">
-      <div className="bg-primary/10 text-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold border border-primary/20">
+      <div className="bg-primary/10 text-primary border-primary/20 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-bold">
         {number}
       </div>
       <div className="space-y-2">
-        <h4 className="font-bold leading-tight">{title}</h4>
+        <h4 className="leading-tight font-bold">{title}</h4>
         <div className="text-muted-foreground">{children}</div>
       </div>
     </div>

@@ -17,7 +17,12 @@ interface MobileNavProps {
   locales: string[];
 }
 
-export function SiteSidebar({ open, setOpen, onClose, locales }: MobileNavProps) {
+export function SiteSidebar({
+  open,
+  setOpen,
+  onClose,
+  locales,
+}: MobileNavProps) {
   const t = useTranslations("Navigation");
   const tTheme = useTranslations("Theme");
   const { theme, setTheme } = useTheme();
@@ -35,13 +40,14 @@ export function SiteSidebar({ open, setOpen, onClose, locales }: MobileNavProps)
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-        <SheetHeader className="text-left mb-6">
-          <SheetTitle className="sr-only">Mobile Menu</SheetTitle> {/* Accessibility */}
+        <SheetHeader className="mb-6 text-left">
+          <SheetTitle className="sr-only">Mobile Menu</SheetTitle>{" "}
+          {/* Accessibility */}
           <div className="flex items-center gap-2">
             {/* <span className="font-serif text-xl font-bold tracking-tighter">woldan<span className="text-primary">.dev</span></span> REMOVED AS PER USER REQUEST */}
           </div>
         </SheetHeader>
-        
+
         <nav className="flex flex-col space-y-4">
           <Link
             href="/"
@@ -59,7 +65,7 @@ export function SiteSidebar({ open, setOpen, onClose, locales }: MobileNavProps)
           </Link>
         </nav>
 
-        <div className="mt-auto absolute bottom-8 left-6 right-6">
+        <div className="absolute right-6 bottom-8 left-6 mt-auto">
           <div className="border-t pt-8">
             <p className="text-muted-foreground mb-4 text-sm">Languages</p>
             <div className="flex flex-wrap gap-2">

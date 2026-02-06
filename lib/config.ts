@@ -55,7 +55,9 @@ export function getConfig(): Config {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let fileConfig:  Omit<Config, "FullName" | "Age" | "Domain"> & { Domain?: string; } = {} as any;
+  let fileConfig: Omit<Config, "FullName" | "Age" | "Domain"> & {
+    Domain?: string;
+  } = {} as any;
 
   if (fs.existsSync(configPath)) {
     const fileContents = fs.readFileSync(configPath, "utf8");
@@ -64,25 +66,39 @@ export function getConfig(): Config {
   }
 
   // Helper to get from Env or File
-  const getVal = (envKey: string, fileKey: keyof Config | string, required = false) => {
+  const getVal = (
+    envKey: string,
+    fileKey: keyof Config | string,
+    required = false
+  ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const val = process.env[envKey] || (fileConfig as any)[fileKey];
     if (required && !val) {
-       throw new Error(`Missing required configuration: ${envKey} (Env) or ${fileKey} (YAML)`);
+      throw new Error(
+        `Missing required configuration: ${envKey} (Env) or ${fileKey} (YAML)`
+      );
     }
     return val;
   };
 
-  const social = (envKey: string, fileKey: keyof NonNullable<Config['Socials']>) => {
-     return process.env[`SOCIAL_${envKey}`] || fileConfig.Socials?.[fileKey];
-  }
+  const social = (
+    envKey: string,
+    fileKey: keyof NonNullable<Config["Socials"]>
+  ) => {
+    return process.env[`SOCIAL_${envKey}`] || fileConfig.Socials?.[fileKey];
+  };
 
   const rawLanguages = process.env.LANGUAGES || fileConfig.Languages;
-  // If Languages is string (from Env), split it. If array (from YAML), use as is. 
-  const languages = typeof rawLanguages === 'string' ? rawLanguages.split(',').map(s => s.trim()) : rawLanguages;
+  // If Languages is string (from Env), split it. If array (from YAML), use as is.
+  const languages =
+    typeof rawLanguages === "string"
+      ? rawLanguages.split(",").map((s) => s.trim())
+      : rawLanguages;
 
   if (!languages || languages.length === 0) {
-      throw new Error("Missing required configuration: LANGUAGES (Env) or Languages (YAML)");
+    throw new Error(
+      "Missing required configuration: LANGUAGES (Env) or Languages (YAML)"
+    );
   }
 
   const firstName = getVal("FIRST_NAME", "FirstName", true);
@@ -90,7 +106,8 @@ export function getConfig(): Config {
   const nickname = getVal("NICKNAME", "Nickname", true);
   const bornDate = getVal("BORN_DATE", "BornDate", true);
   const token = getVal("TOKEN", "Token", true);
-  const domain = process.env.DOMAIN || fileConfig.Domain || `${nickname.toLowerCase()}.me`;
+  const domain =
+    process.env.DOMAIN || fileConfig.Domain || `${nickname.toLowerCase()}.me`;
 
   cachedConfig = {
     FirstName: firstName,
@@ -103,12 +120,12 @@ export function getConfig(): Config {
     Age: calculateAge(bornDate),
     Domain: domain,
     Socials: {
-        Github: social("GITHUB", "Github"),
-        Linkedin: social("LINKEDIN", "Linkedin"),
-        Instagram: social("INSTAGRAM", "Instagram"),
-        Discord: social("DISCORD", "Discord"),
-        Email: social("EMAIL", "Email"),
-    }
+      Github: social("GITHUB", "Github"),
+      Linkedin: social("LINKEDIN", "Linkedin"),
+      Instagram: social("INSTAGRAM", "Instagram"),
+      Discord: social("DISCORD", "Discord"),
+      Email: social("EMAIL", "Email"),
+    },
   } as Config;
 
   return cachedConfig;

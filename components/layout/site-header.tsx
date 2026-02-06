@@ -50,7 +50,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
                     href={socials.Github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                    className="text-muted-foreground hover:text-foreground p-2 transition-colors"
                   >
                     <Github className="h-5 w-5" />
                     <span className="sr-only">Github</span>
@@ -61,7 +61,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
                     href={socials.Linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                    className="text-muted-foreground hover:text-foreground p-2 transition-colors"
                   >
                     <Linkedin className="h-5 w-5" />
                     <span className="sr-only">Linkedin</span>
@@ -72,7 +72,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
                     href={socials.Instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                    className="text-muted-foreground hover:text-foreground p-2 transition-colors"
                   >
                     <Instagram className="h-5 w-5" />
                     <span className="sr-only">Instagram</span>
@@ -83,7 +83,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
                     href={socials.Discord}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                    className="text-muted-foreground hover:text-foreground p-2 transition-colors"
                   >
                     <Disc className="h-5 w-5" />
                     <span className="sr-only">Discord</span>
@@ -92,7 +92,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
                 {socials.Email && (
                   <a
                     href={`mailto:${socials.Email}`}
-                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                    className="text-muted-foreground hover:text-foreground p-2 transition-colors"
                   >
                     <Mail className="h-5 w-5" />
                     <span className="sr-only">Email</span>

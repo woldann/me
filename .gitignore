@@ -16,13 +16,6 @@ yarn-debug.log*
 yarn-error.log*
 bun.lockb
 
-# Content Isolation
-# Ignore all blog posts by default
-content/blog/*
-# But keep the vision blog!
-!content/blog/the-vision.tr.mdx
-!content/blog/the-vision.en.mdx
-
 # Temp/Cache
 .turbo
 .cache
