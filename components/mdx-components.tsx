@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 const DynamicIconRenderer = ({
@@ -106,10 +107,16 @@ const BioHero = ({
   experience,
   focus,
   tagline,
+  labels,
 }: {
   experience: string;
   focus: string;
   tagline: string;
+  labels: {
+    experience: string;
+    years: string;
+    focus: string;
+  };
 }) => (
   <Card className="bg-secondary/30 border-secondary/50 my-8">
     <CardContent className="pt-6">
@@ -120,9 +127,11 @@ const BioHero = ({
           </div>
           <div>
             <div className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-              Deneyim
+              {labels.experience}
             </div>
-            <div className="font-serif text-lg">{experience} Yıl+</div>
+            <div className="font-serif text-lg">
+              {experience} {labels.years}
+            </div>
           </div>
         </div>
         <div className="flex items-start gap-3">
@@ -131,9 +140,11 @@ const BioHero = ({
           </div>
           <div>
             <div className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-              Odak
+              {labels.focus}
             </div>
-            <div className="text-sm leading-tight font-medium">{focus}</div>
+            <div className="text-sm leading-tight font-medium text-balance">
+              {focus}
+            </div>
           </div>
         </div>
       </div>
