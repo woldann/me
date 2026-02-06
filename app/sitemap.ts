@@ -1,0 +1,27 @@
+import { MetadataRoute } from "next";
+import { getConfig } from "@/lib/config";
+import { getPosts } from "@/lib/blog";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const config = getConfig();
+  const baseUrl = `https://${config.Domain}`;
+  const posts = getPosts();
+
+  // Static routes (Homepage)
+  const staticRoutes = config.Languages.map((lang) => ({
+    url: `${baseUrl}/${lang}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: "daily" as const,
+    priority: 1,
+  }));
+
+  // Blog posts
+  const postRoutes = posts.map((post) => ({
+    url: `${baseUrl}/${post.locale}/blog/${post.slug}`,
+    lastModified: new Date(post.meta.date).toISOString(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...postRoutes];
+}

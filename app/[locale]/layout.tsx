@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Inter, Merriweather } from "next/font/google";
 import "../globals.css";
 
@@ -13,15 +12,45 @@ const merriweather = Merriweather({
   subsets: ["latin"],
 });
 
+import { getIsoLocale } from "@/lib/iso-locale";
 import { getConfig } from "@/lib/config";
 
-export function generateMetadata() {
-  const { Nickname } = getConfig();
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const { Nickname, Domain, Languages } = getConfig();
+  const url = `https://${Domain}`;
+
+  const isoLocale = getIsoLocale(locale);
+
+  const languages: Record<string, string> = {};
+  Languages.forEach((lang) => {
+    // Convert 'en' -> 'en-US' for alternates (hyphenated standard)
+    const iso = getIsoLocale(lang).replace("_", "-");
+    languages[iso] = `/${lang}`;
+  });
+
   return {
     title: `${Nickname} - Personal Blog`,
     description: "Personal website and blog.",
     icons: {
       icon: "/icon.ico",
+    },
+    metadataBase: new URL(url),
+    alternates: {
+      canonical: "/",
+      languages: languages,
+    },
+    openGraph: {
+      title: `${Nickname} - Personal Blog`,
+      description: "Personal website and blog.",
+      url: url,
+      siteName: Nickname,
+      locale: isoLocale,
+      type: "website",
     },
   };
 }
