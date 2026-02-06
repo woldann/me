@@ -1,0 +1,114 @@
+"use client";
+
+import { useState } from "react";
+import { Link } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
+import { SiteSidebar } from "@/components/layout/site-sidebar";
+import { Button } from "@/components/ui/button";
+
+import { Config } from "@/lib/config";
+import { Github, Instagram, Linkedin, Mail, Disc } from "lucide-react";
+
+interface SiteHeaderProps {
+  locales: string[];
+  nickname: string;
+  socials?: Config["Socials"];
+}
+
+export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <header className="border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
+      <div className="container flex h-14 max-w-screen-2xl items-center">
+        <div className="mr-4 flex items-center">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="mr-2 cursor-pointer"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Toggle menu</span>
+          </Button>
+
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="font-serif text-xl font-bold">{nickname}</span>
+          </Link>
+        </div>
+
+        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+          <div className="w-full flex-1 md:w-auto md:flex-none">
+            {/* Search or other items could go here */}
+          </div>
+          <nav className="flex items-center gap-2">
+            {socials && (
+              <div className="hidden items-center gap-2 md:flex">
+                {socials.Github && (
+                  <a
+                    href={socials.Github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  >
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">Github</span>
+                  </a>
+                )}
+                {socials.Linkedin && (
+                  <a
+                    href={socials.Linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                    <span className="sr-only">Linkedin</span>
+                  </a>
+                )}
+                {socials.Instagram && (
+                  <a
+                    href={socials.Instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  >
+                    <Instagram className="h-5 w-5" />
+                    <span className="sr-only">Instagram</span>
+                  </a>
+                )}
+                {socials.Discord && (
+                  <a
+                    href={socials.Discord}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  >
+                    <Disc className="h-5 w-5" />
+                    <span className="sr-only">Discord</span>
+                  </a>
+                )}
+                {socials.Email && (
+                  <a
+                    href={`mailto:${socials.Email}`}
+                    className="text-muted-foreground hover:text-foreground transition-colors p-2"
+                  >
+                    <Mail className="h-5 w-5" />
+                    <span className="sr-only">Email</span>
+                  </a>
+                )}
+              </div>
+            )}
+          </nav>
+        </div>
+      </div>
+      <SiteSidebar
+        open={isOpen}
+        setOpen={setIsOpen}
+        onClose={() => setIsOpen(false)}
+        locales={locales}
+      />
+    </header>
+  );
+}

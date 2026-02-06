@@ -1,0 +1,28 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "blog": "Blog"
+  },
+  "Hero": {
+    "greeting": "Hi, I'm Serkan.",
+    "description": "I'm a {age}-year-old developer focused on low-level systems, Windows internals, and modern full-stack development. From x86-64 Assembly to React and Node.js, I bridge the gap between deep systems and the web."
+  },
+  "Home": {
+    "latestWritings": "Latest Writings",
+    "readMore": "Read more →"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts, tutorials, and stories.",
+    "backToAll": "Back to all posts"
+  },
+  "Footer": {
+    "builtBy": "Built by <link>{name}</link>."
+  },
+  "Theme": {
+    "title": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}

@@ -1,0 +1,116 @@
+---
+title: "Açık Kaynak Vizyonu: Kendi Sitenizi Kurun"
+description: "Bu siteyi nasıl açık kaynak yaptığımı, nasıl kurabileceğinizi ve kendi kişisel portfolyonuzu nasıl oluşturabileceğinizi keşfedin."
+date: "2026-02-06"
+tags: ["Open Source", "Guide", "Next.js", "Bun"]
+---
+
+<Callout type="info" title="Neden Açık Kaynak?">
+  Bu web sitesi, insanların kendi kişisel ve modern görünümlü sayfalarını
+  kolayca oluşturabilmesi için modern web teknolojilerini bir araya getiren bir
+  projedir. Bilginin paylaştıkça çoğaldığına inandığım için bu altyapıyı
+  herkesin kullanımına açık (open-source) hale getirdim. Artık siz de bu şablonu
+  kullanarak saniyeler içinde kendi profesyonel portfolyonuzu
+  oluşturabilirsiniz.
+</Callout>
+
+### Hızlı Kurulum Rehberi
+
+Kendi sitenizi ayağa kaldırmak için şu adımları takip etmeniz yeterli:
+
+<Step number="1" title="Projeyi Klonlayın">
+  Repoyu kendi bilgisayarınıza klonlayın ve dizine girin.
+
+```bash
+git clone https://github.com/woldann/me.git
+cd me
+```
+
+</Step>
+
+<Step number="2" title="Yapılandırma">
+  `config.yaml.example` dosyasını `config.yaml` olarak kopyalayın ve kendi bilgilerinizle (isim, sosyal medya, yaş vb.) güncelleyin.
+
+  <Callout type="warning" title="Güvenlik Uyarısı">
+    `Token` kısmına güçlü bir şifre yazmayı unutmayın. Bu, blog yazılarınızı API üzerinden güvenli bir şekilde yayınlamanızı sağlar.
+  </Callout>
+</Step>
+
+<Step number="3" title="Bağımlılıkları Kurun ve Çalıştırın">
+  Gerekli paketleri Bun ile kurun ve geliştirme sunucusunu başlatın.
+
+```bash
+bun install
+bun dev
+```
+
+</Step>
+
+### Blog Yazısı Nasıl Yayınlanır?
+
+Bu sitede yazı yazmak için sunucuya bağlanmanıza veya dosyalarla manuel uğraşmanıza gerek yok. Geliştirdiğim **Publishing CLI** ile süreci otomatiğe bağladım:
+
+<Step number="1" title="İçerik Oluşturun">
+  Ana dizinde yazı dosyanızı oluşturun (Örn: `ilk-yazim.tr.mdx` ve
+  `ilk-yazim.en.mdx`).
+</Step>
+
+<Step number="2" title="Yayınlayın">
+  Terminalden şu komutu çalıştırın:
+
+```bash
+bun run scripts/publish.ts ilk-yazim
+```
+
+</Step>
+
+<Step number="3" title="Canlıda!">
+  Yazınız anında RAM önbelleğine (cache) alınır ve sitede yayına girer.
+</Step>
+
+### Teknik Altyapı
+
+Sitenin kalbinde hız ve güvenlik odaklı bir mimari yatıyor.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <Card>
+    <CardHeader>
+      <CardTitle>Next.js & Tailwind v4</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Modern, responsive ve ultra hızlı kullanıcı arayüzü tasarımı.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>Bun Runtime</CardTitle>
+    </CardHeader>
+    <CardContent>Geliştirme sürecinde maksimum performans ve hız.</CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>MDX & Lucide</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Yazılarınızın içinde doğrudan React bileşenleri ve ikon kullanma
+      özgürlüğü.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>RAM Caching</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Disk okuma maliyetini sıfıra indiren yüksek performanslı önbellek sistemi.
+    </CardContent>
+  </Card>
+</div>
+
+Geleceği beraber inşa etmek, kendi sisteminizi "overclock" etmek istiyorsanız, kodlar sizi bekliyor! 🚀
+
+<ProjectCard
+  title="Open Source Portfolio"
+  repo="woldann/me"
+  description="Bu sitenin tüm kaynak kodlarına GitHub üzerinden erişebilir ve kendi projeleriniz için çatallayabilirsiniz (fork)."
+  tech={["Next.js", "Bun", "Tailwind v4", "MDX"]}
+/>

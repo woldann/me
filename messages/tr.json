@@ -1,0 +1,28 @@
+{
+  "Navigation": {
+    "home": "Ana Sayfa",
+    "blog": "Blog"
+  },
+  "Hero": {
+    "greeting": "Merhaba, Ben Serkan.",
+    "description": "{age} yaşında, düşük seviyeli sistemler, Windows internals ve modern full-stack geliştirme odaklı bir yazılımcıyım. Assembly'den React ve Node.js'e kadar sistem dünyası ile web arasında köprü kuruyorum."
+  },
+  "Home": {
+    "latestWritings": "Son Yazılar",
+    "readMore": "Devamını oku →"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Düşünceler, eğitimler ve hikayeler.",
+    "backToAll": "Tüm yazılara dön"
+  },
+  "Footer": {
+    "builtBy": "<link>{name}</link> tarafından yapıldı."
+  },
+  "Theme": {
+    "title": "Görünüm",
+    "light": "Aydınlık",
+    "dark": "Karanlık",
+    "system": "Sistem"
+  }
+}

@@ -1,0 +1,23 @@
+# User Information
+FirstName: Serkan
+LastName: Aksoy
+Nickname: "Woldan"
+BornDate: "21/04/2004"
+# Optional: Defaults to Nickname.me
+Domain: "woldan.me"
+
+Socials:
+  Discord: "https://discord.gg/example"
+  Email: "serkanaksy@proton.me"
+  Linkedin: "https://linkedin.com/in/serkanaksy"
+  Github: "https://github.com/woldann"
+  Instagram: "https://instagram.com/example"
+
+# Security
+# This token validates requests to the /api/publish endpoint
+Token: "your-secure-token"
+
+# Languages
+Languages:
+  - en
+  - tr

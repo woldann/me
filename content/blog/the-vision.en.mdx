@@ -1,0 +1,116 @@
+---
+title: "Open Source Vision: Build Your Own Site"
+description: "Create your own personal and modern-looking pages easily with this open-source template."
+date: "2026-02-06"
+tags: ["Open Source", "Guide", "Next.js", "Bun"]
+---
+
+<Callout type="info" title="Why Open Source?">
+  This website is a project that brings together modern web technologies to help
+  everyone create their own personal and modern-looking pages easily. Because I
+  believe that knowledge grows as it's shared, I've made this infrastructure
+  open-source for everyone to use. Now, you can use this template to create your
+  own professional portfolio in seconds.
+</Callout>
+
+### Quick Setup Guide
+
+Just follow these steps to get your own site up and running:
+
+<Step number="1" title="Clone the Project">
+  Clone the repository to your local machine and navigate into the directory.
+
+```bash
+git clone https://github.com/woldann/me.git
+cd me
+```
+
+</Step>
+
+<Step number="2" title="Configuration">
+  Copy `config.yaml.example` to `config.yaml` and update it with your own information (name, social media, age, etc.).
+
+  <Callout type="warning" title="Security Notice">
+    Don't forget to write a strong password in the `Token` section. This allows you to securely publish your blog posts via the API.
+  </Callout>
+</Step>
+
+<Step number="3" title="Install Dependencies and Run">
+  Install the necessary packages using Bun and start the development server.
+
+```bash
+bun install
+bun dev
+```
+
+</Step>
+
+### How to Publish a Blog Post?
+
+You don't need to connect to the server or manually deal with files to write on this site. I've automated the process with the **Publishing CLI** I developed:
+
+<Step number="1" title="Create Content">
+  Create your post files in the root directory (e.g., `my-first-post.tr.mdx` and
+  `my-first-post.en.mdx`).
+</Step>
+
+<Step number="2" title="Publish">
+  Run this command from the terminal:
+
+```bash
+bun run scripts/publish.ts my-first-post
+```
+
+</Step>
+
+<Step number="3" title="Live!">
+  Your post is instantly cached in RAM and goes live on the site.
+</Step>
+
+### Technical Infrastructure
+
+At the heart of the site lies an architecture focused on speed and security.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <Card>
+    <CardHeader>
+      <CardTitle>Next.js & Tailwind v4</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Modern, responsive, and ultra-fast user interface design.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>Bun Runtime</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Maximum performance and speed during the development process.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>MDX & Lucide</CardTitle>
+    </CardHeader>
+    <CardContent>
+      Freedom to use React components and icons directly inside your posts.
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle>RAM Caching</CardTitle>
+    </CardHeader>
+    <CardContent>
+      A high-performance caching system that eliminates disk reading costs.
+    </CardContent>
+  </Card>
+</div>
+
+If you want to build the future together and "overclock" your own system, the code is waiting for you! 🚀
+
+<ProjectCard
+  title="Open Source Portfolio"
+  repo="woldann/me"
+  description="You can access all the source code of this site on GitHub and fork it for your own projects."
+  tech={["Next.js", "Bun", "Tailwind v4", "MDX"]}
+/>
