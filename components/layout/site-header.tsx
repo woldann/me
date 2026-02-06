@@ -41,7 +41,7 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center gap-1">
             {socials && (
-              <div className="hidden items-center gap-2 md:flex">
+              <div className="flex items-center gap-2">
                 {socials.Github && (
                   <a
                     href={socials.Github}
