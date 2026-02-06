@@ -33,14 +33,25 @@ export function Hero({
               onInit={(typewriter) => {
                 typewriter
                   .typeString(greeting)
-                  .callFunction((_state) => {
-                    // Hide cursor when finished -- COMMENTED OUT to keep cursor visible
-                    // if (state.elements.cursor) {
-                    //   state.elements.cursor.style.display = "none";
-                    // }
+                  .callFunction((state) => {
                     if (onIntroComplete) {
                       onIntroComplete();
                     }
+                    // Fade out cursor after 3 seconds
+                    setTimeout(() => {
+                      if (state.elements.cursor) {
+                        state.elements.cursor.style.transition =
+                          "color 1s ease-out";
+                        state.elements.cursor.style.color = "transparent";
+
+                        // Completely remove after transition
+                        setTimeout(() => {
+                          if (state.elements.cursor) {
+                            state.elements.cursor.style.display = "none";
+                          }
+                        }, 1000);
+                      }
+                    }, 3000);
                   })
                   .start();
               }}

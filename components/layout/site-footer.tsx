@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Github, Instagram, Linkedin, Mail, Disc } from "lucide-react";
 import { Config } from "@/lib/config";
 
 interface SiteFooterProps {
@@ -30,64 +29,6 @@ export function SiteFooter({ fullName, socials }: SiteFooterProps) {
             ),
           })}
         </p>
-
-        {socials && (
-          <div className="flex items-center gap-4">
-            {socials.Github && (
-              <a
-                href={socials.Github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Github className="h-5 w-5" />
-                <span className="sr-only">Github</span>
-              </a>
-            )}
-            {socials.Linkedin && (
-              <a
-                href={socials.Linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">Linkedin</span>
-              </a>
-            )}
-            {socials.Instagram && (
-              <a
-                href={socials.Instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </a>
-            )}
-            {socials.Discord && (
-              <a
-                href={socials.Discord}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Disc className="h-5 w-5" />
-                <span className="sr-only">Discord</span>
-              </a>
-            )}
-            {socials.Email && (
-              <a
-                href={`mailto:${socials.Email}`}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </a>
-            )}
-          </div>
-        )}
       </div>
     </footer>
   );

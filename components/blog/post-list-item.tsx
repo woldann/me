@@ -17,7 +17,7 @@ export function PostListItem({ post }: PostListItemProps) {
 
   return (
     <Link href={`/blog/${post.slug}`}>
-      <Card className="hover:bg-muted/50 h-full border-none p-4 shadow-none transition-all hover:shadow-sm">
+      <Card className="hover:bg-muted/50 h-full transition-all hover:scale-[1.02] hover:shadow-md active:scale-[0.98]">
         <CardHeader className="">
           <div className="text-muted-foreground mb-2 flex items-center gap-2 text-sm">
             <time dateTime={post.meta.date}>

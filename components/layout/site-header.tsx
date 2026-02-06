@@ -20,8 +20,8 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 grid w-full border-b backdrop-blur-md">
+      <div className="flex h-14 w-full items-center px-4 md:px-8">
         <div className="mr-4 flex items-center">
           <Button
             variant="ghost"
@@ -38,11 +38,8 @@ export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
           </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Search or other items could go here */}
-          </div>
-          <nav className="flex items-center gap-2">
+        <div className="flex flex-1 items-center justify-end space-x-4">
+          <nav className="flex items-center gap-1">
             {socials && (
               <div className="hidden items-center gap-2 md:flex">
                 {socials.Github && (

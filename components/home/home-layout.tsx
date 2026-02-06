@@ -38,8 +38,9 @@ export function HomeLayout({
         initial={{ opacity: 0 }}
         animate={{ opacity: isIntroDone ? 1 : 0 }}
         transition={{ duration: 1 }}
+        className="sticky top-0 z-50 w-full"
       >
-        <SiteHeader locales={locales} nickname={nickname} />
+        <SiteHeader locales={locales} nickname={nickname} socials={socials} />
       </motion.div>
 
       <main className="container mx-auto max-w-screen-md flex-1 px-4">
