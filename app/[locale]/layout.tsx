@@ -15,14 +15,16 @@ const merriweather = Merriweather({
 import { getIsoLocale } from "@/lib/iso-locale";
 import { getConfig } from "@/lib/config";
 
+import { getBaseUrl } from "@/lib/base-url";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { Nickname, Domain, Languages, FullName } = getConfig();
-  const url = `https://${Domain}`;
+  const { Nickname, Languages, FullName } = getConfig();
+  const url = getBaseUrl();
 
   const isoLocale = getIsoLocale(locale);
 

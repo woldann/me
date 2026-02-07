@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
 import { getConfig } from "@/lib/config";
 import { getPosts } from "@/lib/blog";
+import { getBaseUrl } from "@/lib/base-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const config = getConfig();
-  const baseUrl = `https://${config.Domain}`;
+  const baseUrl = getBaseUrl();
   const posts = getPosts();
 
   // Static routes (Homepage & Blog Index)

@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next";
-import { getConfig } from "@/lib/config";
+import { getBaseUrl } from "@/lib/base-url";
 
 export default function robots(): MetadataRoute.Robots {
-  const config = getConfig();
-  const baseUrl = `https://${config.Domain}`;
+  const baseUrl = getBaseUrl();
 
   return {
     rules: {
@@ -11,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   };
 }

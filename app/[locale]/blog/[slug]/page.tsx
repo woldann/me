@@ -13,6 +13,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { getTranslations } from "next-intl/server";
 import { getIsoLocale } from "@/lib/iso-locale";
 
+import { getBaseUrl } from "@/lib/base-url";
+
 interface BlogPostProps {
   params: Promise<{ slug: string; locale: string }>;
 }
@@ -25,8 +27,8 @@ export async function generateMetadata({ params }: BlogPostProps) {
     return;
   }
 
-  const { Domain, FullName } = getConfig();
-  const url = `https://${Domain}`;
+  const { FullName } = getConfig();
+  const url = getBaseUrl();
   const isoLocale = getIsoLocale(locale);
 
   return {

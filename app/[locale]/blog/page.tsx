@@ -6,14 +6,16 @@ import { getTranslations } from "next-intl/server";
 import { getConfig } from "@/lib/config";
 import { SiteFooter } from "@/components/layout/site-footer";
 
+import { getBaseUrl } from "@/lib/base-url";
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { Nickname, Domain } = getConfig();
-  const url = `https://${Domain}`;
+  const { Nickname } = getConfig();
+  const url = getBaseUrl();
 
   return {
     title: `Blog - ${Nickname}`,
