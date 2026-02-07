@@ -7,13 +7,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = `https://${config.Domain}`;
   const posts = getPosts();
 
-  // Static routes (Homepage)
-  const staticRoutes = config.Languages.map((lang) => ({
-    url: `${baseUrl}/${lang}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: "daily" as const,
-    priority: 1,
-  }));
+  // Static routes (Homepage & Blog Index)
+  const staticRoutes = config.Languages.flatMap((lang) => [
+    {
+      url: `${baseUrl}/${lang}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "daily" as const,
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/${lang}/blog`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "daily" as const,
+      priority: 0.9,
+    },
+  ]);
 
   // Blog posts
   const postRoutes = posts.map((post) => ({

@@ -17,6 +17,7 @@ interface HomeLayoutProps {
   locales: string[];
   nickname: string;
   fullName: string;
+  domain: string;
   heroDescription: React.ReactNode;
   socials?: Config["Socials"];
 }
@@ -27,6 +28,7 @@ export function HomeLayout({
   locales,
   nickname,
   fullName,
+  domain,
   heroDescription,
   socials,
 }: HomeLayoutProps) {
@@ -40,7 +42,12 @@ export function HomeLayout({
         transition={{ duration: 1 }}
         className="sticky top-0 z-50 w-full"
       >
-        <SiteHeader locales={locales} nickname={nickname} socials={socials} />
+        <SiteHeader
+          locales={locales}
+          nickname={nickname}
+          domain={domain}
+          socials={socials}
+        />
       </motion.div>
 
       <main className="container mx-auto max-w-screen-md flex-1 px-4">

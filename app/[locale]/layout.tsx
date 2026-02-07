@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { Nickname, Domain, Languages } = getConfig();
+  const { Nickname, Domain, Languages, FullName } = getConfig();
   const url = `https://${Domain}`;
 
   const isoLocale = getIsoLocale(locale);
@@ -34,23 +34,58 @@ export async function generateMetadata({
   });
 
   return {
-    title: `${Nickname} - Personal Blog`,
-    description: "Personal website and blog.",
-    icons: {
-      icon: "/icon.ico",
+    title: {
+      default: `${Nickname} - Personal Blog`,
+      template: `%s | ${Nickname}`,
     },
+    description: "Personal website and blog.",
+    keywords: [
+      "Software Engineer",
+      "Full Stack Developer",
+      "Blog",
+      "Technology",
+      "Coding",
+    ],
+    authors: [{ name: FullName, url: url }],
+    creator: FullName,
     metadataBase: new URL(url),
     alternates: {
-      canonical: "/",
+      canonical: `${url}/${locale}`,
       languages: languages,
     },
     openGraph: {
       title: `${Nickname} - Personal Blog`,
       description: "Personal website and blog.",
-      url: url,
-      siteName: Nickname,
+      url: `${url}/${locale}`,
+      siteName: `${Nickname} - Personal Blog`,
       locale: isoLocale,
       type: "website",
+      images: [
+        {
+          url: "/icon.ico",
+          alt: `${Nickname} - Personal Blog`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${Nickname} - Personal Blog`,
+      description: "Personal website and blog.",
+      creator: `@${Nickname}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    icons: {
+      icon: "/icon.ico",
     },
   };
 }

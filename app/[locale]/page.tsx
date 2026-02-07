@@ -12,7 +12,7 @@ export default async function Home({ params }: HomePageProps) {
   const { locale } = await params;
   const posts = getAllPosts(locale);
   const t = await getTranslations("Home");
-  const { Languages, Nickname, FullName, Socials } = getConfig();
+  const { Languages, Nickname, FullName, Socials, Domain } = getConfig();
 
   const heroDescription = <MdxTranslation namespace="Hero" id="description" />;
 
@@ -24,6 +24,7 @@ export default async function Home({ params }: HomePageProps) {
       locales={Languages}
       nickname={Nickname}
       fullName={FullName}
+      domain={Domain}
       socials={Socials}
       heroDescription={heroDescription}
     />

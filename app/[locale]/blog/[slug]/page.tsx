@@ -11,9 +11,45 @@ import { notFound } from "next/navigation";
 import { getConfig } from "@/lib/config";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { getTranslations } from "next-intl/server";
+import { getIsoLocale } from "@/lib/iso-locale";
 
 interface BlogPostProps {
   params: Promise<{ slug: string; locale: string }>;
+}
+
+export async function generateMetadata({ params }: BlogPostProps) {
+  const { slug, locale } = await params;
+  const post = getPostBySlug(slug, locale);
+
+  if (!post) {
+    return;
+  }
+
+  const { Domain, FullName } = getConfig();
+  const url = `https://${Domain}`;
+  const isoLocale = getIsoLocale(locale);
+
+  return {
+    title: post.meta.title,
+    description: post.meta.description,
+    openGraph: {
+      title: post.meta.title,
+      description: post.meta.description,
+      type: "article",
+      url: `${url}/${locale}/blog/${slug}`,
+      publishedTime: post.meta.date,
+      authors: [FullName],
+      locale: isoLocale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.meta.title,
+      description: post.meta.description,
+    },
+    alternates: {
+      canonical: `${url}/${locale}/blog/${slug}`,
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -45,7 +81,28 @@ export default async function BlogPost({ params }: BlogPostProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader locales={Languages} nickname={Nickname} />
+      <SiteHeader
+        locales={Languages}
+        nickname={Nickname}
+        domain={getConfig().Domain}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.meta.title,
+            datePublished: post.meta.date,
+            description: post.meta.description,
+            author: {
+              "@type": "Person",
+              name: FullName,
+              url: `https://${getConfig().Domain}`,
+            },
+          }),
+        }}
+      />
       <main className="container mx-auto max-w-screen-md flex-1 px-4 py-12">
         <Link
           href="/blog"

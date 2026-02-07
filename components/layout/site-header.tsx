@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Link } from "@/i18n/routing";
-import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { SiteSidebar } from "@/components/layout/site-sidebar";
 import { Button } from "@/components/ui/button";
@@ -13,14 +12,32 @@ import { Github, Instagram, Linkedin, Mail, Disc } from "lucide-react";
 interface SiteHeaderProps {
   locales: string[];
   nickname: string;
+  domain: string;
   socials?: Config["Socials"];
 }
 
-export function SiteHeader({ locales, nickname, socials }: SiteHeaderProps) {
+export function SiteHeader({
+  locales,
+  nickname,
+  domain,
+  socials,
+}: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const baseUrl = `https://${domain}`;
+
+  const navSchema = {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: ["Home", "Blog"],
+    url: [`${baseUrl}/`, `${baseUrl}/blog`],
+  };
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 grid w-full border-b backdrop-blur-md">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(navSchema) }}
+      />
       <div className="flex h-14 w-full items-center px-4 md:px-8">
         <div className="mr-4 flex items-center">
           <Button

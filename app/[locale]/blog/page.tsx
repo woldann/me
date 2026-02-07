@@ -6,11 +6,27 @@ import { getTranslations } from "next-intl/server";
 import { getConfig } from "@/lib/config";
 import { SiteFooter } from "@/components/layout/site-footer";
 
-export function generateMetadata() {
-  const { Nickname } = getConfig();
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const { Nickname, Domain } = getConfig();
+  const url = `https://${Domain}`;
+
   return {
     title: `Blog - ${Nickname}`,
     description: "Read my latest thoughts on web development and more.",
+    alternates: {
+      canonical: `${url}/${locale}/blog`,
+    },
+    openGraph: {
+      title: `Blog - ${Nickname}`,
+      description: "Read my latest thoughts on web development and more.",
+      url: `${url}/${locale}/blog`,
+      type: "website",
+    },
   };
 }
 
@@ -22,11 +38,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const { locale } = await params;
   const posts = getAllPosts(locale);
   const t = await getTranslations("Blog");
-  const { Languages, Nickname, FullName, Socials } = getConfig();
+  const { Languages, Nickname, FullName, Socials, Domain } = getConfig();
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader locales={Languages} nickname={Nickname} />
+      <SiteHeader locales={Languages} nickname={Nickname} domain={Domain} />
       <main className="container mx-auto max-w-screen-md flex-1 px-4 py-12">
         <div className="mb-12">
           <TypographyH1 className="mb-4">{t("title")}</TypographyH1>
