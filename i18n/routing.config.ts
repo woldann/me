@@ -10,4 +10,5 @@ export const routing = defineRouting({
 
   // Optional: Disable locale detection if we want strictly to use the default for everyone on root
   // localeDetection: false,
+  localePrefix: "as-needed",
 });
