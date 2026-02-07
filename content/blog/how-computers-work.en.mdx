@@ -1,0 +1,155 @@
+---
+title: "How Computers Work? (A Journey from Transistor to Kernel)"
+description: "A guide exploring the logic of computers, from a factory of billions of transistors to the heart of the operating system and security walls."
+date: "2026-02-07"
+tags: ["Architecture", "CPU", "Kernel", "Security", "Deep Dive"]
+---
+
+Have you ever wondered what's going on inside your computer case or on your phone's chip? Is an "unhackable" system possible? How do processors decide?
+
+In this article, we will embark on a three-stage journey starting from the electrical world of transistors, towards the absolute authority of the operating system (Kernel), and the foundations of system security.
+
+<Step number="1" title="The Mystery of Billions of Transistors: Why Are Processors So Crowded?">
+
+When you look inside a modern processor, you see billions of transistors, too small to be seen with the naked eye, coming together. So, why do we need such a massive crowd to do a simple calculation? Let's explore that chasm between a small circuit you designed yourself and a modern processor.
+
+### 1. Fixed Circuit vs. Programmable City
+
+Imagine designing an 8-input (4-bit + 4-bit) multiplication circuit yourself. This circuit only multiplies. Electricity enters, passes through a few hundred transistors, and the result comes out. This is like a path that only goes in one direction.
+
+However, a computer processor is not "fixed-minded". It is a programmable circuit. In this article, as an example, we will discuss the x86_64 architecture, which I am most familiar with and work on. A processor, with the same set of transistors, calculates the graphics in your game one second, and copies a text you wrote to memory the next second. To provide this flexibility, the processor consists not only of units that calculate but also of a massive "switchboard" system that constantly redirects electricity.
+
+### 2. A Master for Every Job
+
+There isn't just multiplication happening inside the processor.
+
+- **Math Teams:** There are massive groups of transistors separately for integers and floating-point numbers (FPU).
+- **Traffic Police (Decoders):** These are the units that read the codes you wrote (ADD, MOV, MUL) and decide which "master" the electricity should go to.
+- **Fast Warehouses (Cache):** The processor is so fast that it cannot wait for data from the main memory (RAM). Millions of "electricity prisons" (Cache) are built to keep the data right next to it. Just these warehouses take up more than half of the billions of transistors.
+
+### 3. Why Only Transistors?
+
+So, why is there nothing else inside the processor? Because the transistor is the atom of the digital universe. A transistor is actually just a faucet. If electricity comes, it opens the way (1), if it doesn't, it closes (0).
+
+- If you line up these faucets side by side, you do math.
+- If you connect them to each other and trap electricity inside, you make memory.
+- If you command one to the other, you make decisions.
+
+So we don't need anything other than transistors; because with billions of correctly arranged "faucets", you can model any kind of logical operation in the universe.
+
+### 4. Conclusion: The Processor as a Factory
+
+The 4-bit circuit you designed is like a single machine in a workshop. The processor is a giant factory with millions of different machines inside, autonomous vehicles carrying products between machines, and a manager deciding which machine will work every second.
+
+Every line of C or Assembly code you write is actually an electrical switch that chooses which of these billions of faucets will open. That's why everything from the phones in our pockets to the computers on our desks depends on the incredible organization of these tiny switches.
+
+<Callout type="note" title="Author's Note">
+  Next time you do a simple "addition" operation, don't forget that result
+  reaches you by billions of tiny switches organizing in a billionth of a
+  second!
+</Callout>
+
+</Step>
+
+<Step number="2" title="The Heart of the Operating System: What is Kernel?">
+
+In the previous section, we mentioned that processors are giant factories consisting of billions of transistors. So, who decides which machine works when in this huge factory, which warehouse (RAM) the raw material (data) is put in, and which door (screen/speaker) the products come out of?
+
+Here, the most authoritative figure of the digital world comes to the stage: **Kernel**.
+
+### 1. The Invisible Manager of the Factory
+
+If we think of the processor as a factory building, the Kernel is the general manager of this factory. When you open an application or click on a code, you don't actually talk directly to the hardware. Because hardware (transistors) only understands electricity.
+
+The Kernel manages the communication between the C or Assembly codes you write and those billions of transistors. The Kernel is the authority that says "this application can use this much processor power" or "this file is read-only, cannot be written over".
+
+### 2. The Bridge Between Software and Hardware
+
+The most basic task of the Kernel is to translate the needs of the software into the language the hardware understands. It does this with a method we call **System Calls**.
+
+Let's say you want to save a file:
+
+1.  Your application knocks on the Kernel's door: "Hey manager, I need to write this data to disk."
+2.  The Kernel checks the situation: "Is there space on the disk? Does this application have permission to write?"
+3.  If everything is fine, the Kernel sends the necessary electrical signals to those billions of transistors and the operation takes place.
+
+### 3. "Ring 0": Absolute Power
+
+In x86_64 architecture, the processor has different "privilege levels" (Rings). Normal applications (your browser, your games) usually run in the outermost ring (**Ring 3**). The Kernel is right in the center, in the area we call **Ring 0**.
+
+This means: The Kernel is the only software that can directly touch every bit of the hardware. If an application tries to interfere directly with the hardware, the Kernel stops it immediately. This is the most basic mechanism that prevents your computer from crashing and ensures its security.
+
+### 4. Why Is It Important?
+
+As a programmer, the speed of the code you write depends not only on the algorithm but also on how compatibly it works with the Kernel. If the Kernel does not distribute memory (RAM) efficiently or manage processor cores correctly, the billions of transistors you have are of no importance.
+
+### Conclusion: Conductor of the Orchestra
+
+The Kernel is the invisible hero of your computer. You only see the pixels on the screen, but in the background, the Kernel works like an orchestra conductor coordinating thousands of processes, sharing resources, and protecting the hardware.
+
+If transistors are the machines of the factory, the Kernel is the intellect that gives that factory a soul and turns it into a "system".
+
+<Callout type="note" title="Author's Note">
+  Next time we dive into deeper waters like "Memory Management" or "Process
+  Scheduling", we will see more closely how the Kernel organizes this giant
+  factory in a millionth of a second.
+</Callout>
+
+</Step>
+
+<Step number="3" title='Why Is The Computer "Unhackable"? (Or Why Every App Can"t Be King)'>
+
+In the previous parts of the series, we talked about processors being giant factories and the Kernel being the absolute authority manager of this factory. Now let's ask that critical question that confuses minds: Since both an ordinary application and the Kernel use the same Assembly commands (like ADD, MOV, JMP), then why can't an application just say "I am the manager now" and take over everything?
+
+Let's get behind that invisible wall that actually makes your computer "unhackable" (at least easily).
+
+### 1. Same Alphabet, Different Authority
+
+Imagine writing a virus or malicious software. The commands inside this software are exactly the same as the commands in the heart of Windows or Linux. Both speak the x86_64 language. However, the difference is that the hardware (CPU) looks at who is saying these commands.
+
+The Ring 0 (Kernel) and Ring 3 (Application) distinction we mentioned in the previous section comes into play here. The processor knows at any moment which privilege level the code running at that moment is in. When an application tries to perform an operation within the Kernel's jurisdiction, the processor intervenes.
+
+### 2. First Come Makes the Rules: Memory Bans
+
+So, who decides that these regions are "forbidden"? Here, the Kernel's **"first boot"** advantage comes into play.
+
+The moment you press the button on your computer, the RAM (memory) is empty. The first thing loaded is the Kernel. As soon as the Kernel sits in its seat, it tells the processor (CPU):
+
+- "This address range is my private zone, no one else can touch here."
+- "These regions can be playgrounds for applications but they cannot go out from there."
+
+The Kernel creates the memory map (Page Tables) even before applications exist. When applications come on stage, they are trapped in that narrow space allocated to them. When an application tries to access an address forbidden by the Kernel (memory access), a hardware-level error (Segmentation Fault) occurs and the Kernel immediately "executes" (closes) that application.
+
+### 3. Hardware Devices: Why Can't You Read My Keyboard Directly?
+
+Memory is not the only obstacle for applications; they also cannot directly access hardware devices such as the graphics card, hard disk, or keyboard.
+
+In x86_64 architecture, there are special **"Privileged Instructions"** used to talk to hardware. For example, commands like `IN` and `OUT` used to say "Read data from this disk" or "Send electricity to this USB port" to the processor only work at Ring 0 level.
+
+If a Ring 3 level (ordinary application) tries to run these commands:
+
+1.  The processor counts this command as "invalid".
+2.  Throws a hardware exception (Exception).
+3.  The Kernel catches this situation and stops the application.
+
+That's why when a game wants to draw an image on the screen, it cannot give direct orders to the graphics card. It first knocks on the Kernel's door (System Call) and asks "Can you please draw this on the screen?". If the Kernel finds this request safe, it uses its authority to transmit the order to the hardware.
+
+### 4. Hardware Protection: MMU
+
+This protection is not just a software check. Inside the processor, there is a physical unit called **MMU (Memory Management Unit)**. This unit controls every memory access at the speed of light. When an application wants to go to an address, the MMU intervenes and decides whether to give passage permission or not by looking at the rules set by the Kernel.
+
+If this hardware barrier did not exist, even a simple notepad application could read all your passwords from RAM or delete everything on your hard disk with a single command.
+
+### Conclusion: Invisible Walls
+
+Your computer's security relies on that secret agreement the Kernel made with the hardware. No matter how complex applications are, they cannot go outside the boundaries drawn by the Kernel. Most of the events we call "Hack" are not breaking down this wall, but finding a crack (a software bug) in the wall and trying to leak through there.
+
+However, the basic rule does not change: **The first one entering the factory becomes the manager and locks the doors from the inside.**
+
+<Callout type="note" title="Author's Note">
+  In this series extending from Processor to Kernel, from Kernel to security, we
+  actually saw that everything is a matter of "organization". Now when you write
+  code, you know which transistors work with which hierarchy in the background!
+</Callout>
+
+</Step>

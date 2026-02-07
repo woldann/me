@@ -1,0 +1,155 @@
+---
+title: "Bilgisayarlar Nasıl Çalışır? (Transistörden Kernel'a Yolculuk)"
+description: "Milyarlarca transistörlük bir fabrikadan, işletim sisteminin kalbine ve güvenlik duvarlarına kadar bilgisayarın çalışma mantığını keşfeden bir rehber."
+date: "2026-02-07"
+tags: ["Architecture", "CPU", "Kernel", "Security", "Deep Dive"]
+---
+
+Bilgisayarınızın kasasının içinde veya telefonunuzun çipi üzerinde neler olup bittiğini hiç merak ettiniz mi? "Hacklenemez" bir sistem mümkün mü? İşlemciler nasıl karar verir?
+
+Bu yazıda, transistörlerin elektriksel dünyasından başlayıp, işletim sisteminin (Kernel) mutlak otoritesine ve sistem güvenliğinin temellerine doğru üç aşamalı bir yolculuğa çıkacağız.
+
+<Step number="1" title="Milyarlarca Transistörün Gizemi: İşlemciler Neden Bu Kadar Kalabalık?">
+
+Modern bir işlemcinin içine baktığınızda, gözle görülmeyecek kadar küçük milyarlarca transistörün bir araya geldiğini görürsünüz. Peki, basit bir hesaplama yapmak için neden bu kadar devasa bir kalabalığa ihtiyaç duyuyoruz? Kendi tasarladığınız küçük bir devre ile modern bir işlemci arasındaki o uçurumu gelin beraber keşfedelim.
+
+### 1. Sabit Devre vs. Programlanabilir Şehir
+
+Kendi başınıza 8 girişli (4-bit + 4-bit) bir çarpma devresi tasarladığınızı düşünün. Bu devre sadece çarpar. Elektrik girer, birkaç yüz transistörden geçer ve sonuç çıkar. Bu, sadece tek bir yöne giden bir patika yol gibidir.
+
+Ancak bir bilgisayar işlemcisi, "sabit fikirli" değildir. O, programlanabilir bir devredir. Bu yazıda örnek olarak, en çok hakim olduğum ve üzerinde çalıştığım x86_64 mimarisini ele alacağız. Bir işlemci, aynı transistör takımıyla bir saniye önce oyununuzdaki grafikleri hesaplarken, bir saniye sonra yazdığınız bir metni belleğe kopyalar. Bu esnekliği sağlamak için işlemci, sadece hesap yapan birimlerden değil, elektriği sürekli yönlendiren devasa bir "santral" sisteminden oluşur.
+
+### 2. Her İşin Bir Ustası Var
+
+İşlemcinin içinde sadece çarpma işlemi yapılmaz.
+
+- **Matematik Takımları:** Tam sayılar için ayrı, virgüllü sayılar için ayrı (FPU) devasa transistör grupları vardır.
+- **Trafik Polisleri (Decoders):** Sizin yazdığınız kodları (ADD, MOV, MUL) okuyup, elektriğin hangi "ustaya" gitmesi gerektiğine karar veren birimlerdir.
+- **Hızlı Depolar (Cache):** İşlemci o kadar hızlıdır ki, veriyi ana bellekten (RAM) bekleyemez. Veriyi hemen yanında tutmak için milyonlarca "elektrik hapishanesi" (Önbellek) inşa edilir. Sadece bu depolar bile milyarlarca transistörün yarısından fazlasını kaplar.
+
+### 3. Neden Sadece Transistör?
+
+Peki, neden işlemcinin içinde başka hiçbir şey yok? Çünkü transistör, dijital evrenin atomudur. Bir transistör aslında sadece bir musluktur. Elektrik gelirse yolu açar (1), gelmezse kapatır (0).
+
+- Eğer bu muslukları yan yana dizerseniz matematik yaparsınız.
+- Eğer birbirine bağlayıp elektriği içinde hapsederseniz hafıza yaparsınız.
+- Eğer birini diğerine komuta ederseniz karar verirsiniz.
+
+Yani transistör dışında bir şeye ihtiyacımız yok; çünkü doğru dizilmiş milyarlarca "musluk" ile evrendeki her türlü mantıksal işlemi modelleyebilirsiniz.
+
+### 4. Sonuç: Bir Fabrika Olarak İşlemci
+
+Kendi tasarladığınız 4-bitlik devre, bir atölyedeki tek bir makine gibidir. İşlemci ise içinde milyonlarca farklı makinenin olduğu, makineler arası ürün taşıyan otonom araçların bulunduğu ve her saniye hangi makinenin çalışacağına karar veren bir müdürün yönettiği dev bir fabrikadır.
+
+Yazdığınız her bir satır C veya Assembly kodu, aslında bu milyarlarca musluğun hangisinin açılacağını seçen birer elektrik anahtarıdır. İşte bu yüzden, cebimizdeki telefonlardan masamızdaki bilgisayarlara kadar her şey, bu minicik anahtarların inanılmaz organizasyonuna muhtaçtır.
+
+<Callout type="note" title="Yazar Notu">
+  Bir dahaki sefere basit bir "toplama" işlemi yaptığınızda, o sonucun
+  milyarlarca küçük anahtarın saniyenin milyarda birinde organize olmasıyla size
+  ulaştığını unutmayın!
+</Callout>
+
+</Step>
+
+<Step number="2" title="İşletim Sisteminin Kalbi: Kernel (Çekirdek) Nedir?">
+
+Bir önceki bölümde, işlemcilerin milyarlarca transistörden oluşan devasa birer fabrika olduğundan bahsetmiştik. Peki, bu devasa fabrikada hangi makinenin ne zaman çalışacağına, ham maddenin (verinin) hangi depoya (RAM) konulacağına ve ürünlerin hangi kapıdan (ekran/hoparlör) çıkacağına kim karar veriyor?
+
+İşte burada sahneye, dijital dünyanın en yetkili figürü çıkıyor: **Kernel (Çekirdek)**.
+
+### 1. Fabrikanın Görünmez Müdürü
+
+İşlemciyi bir fabrika binası olarak düşünürsek, Kernel bu fabrikanın genel müdürüdür. Siz bir uygulama açtığınızda veya bir koda tıkladığınızda aslında doğrudan donanımla konuşmazsınız. Çünkü donanım (transistörler) sadece elektrikten anlar.
+
+Sizin yazdığınız C veya Assembly kodları ile o milyarlarca transistör arasındaki iletişimi Kernel yönetir. Kernel, "şu uygulama şu kadar işlemci gücü kullanabilir" veya "bu dosya sadece okunabilir, üzerine yazılamaz" diyen yetkili merciidir.
+
+### 2. Yazılım ve Donanım Arasındaki Köprü
+
+Kernel'ın en temel görevi, yazılımın ihtiyaçlarını donanımın anlayacağı dile çevirmektir. Bunu **System Calls (Sistem Çağrıları)** dediğimiz yöntemle yapar.
+
+Diyelim ki bir dosyayı kaydetmek istiyorsunuz:
+
+1.  Uygulamanız Kernel'ın kapısını çalar: "Hey müdür, bu veriyi diske yazmam lazım."
+2.  Kernel durumu kontrol eder: "Diskte yer var mı? Bu uygulamanın yazma yetkisi var mı?"
+3.  Eğer her şey yolundaysa, Kernel o milyarlarca transistöre gerekli elektrik sinyallerini gönderir ve işlem gerçekleşir.
+
+### 3. "Ring 0": Mutlak Güç
+
+x86_64 mimarisinde işlemcinin farklı "yetki seviyeleri" (Rings) vardır. Normal uygulamalar (tarayıcınız, oyunlarınız) genellikle en dış halkada (**Ring 3**) çalışır. Kernel ise tam merkezde, **Ring 0** dediğimiz bölgededir.
+
+Bu şu anlama gelir: Kernel, donanımın her zerresine doğrudan dokunabilen tek yazılımdır. Eğer bir uygulama doğrudan donanıma müdahale etmeye çalışırsa, Kernel onu anında durdurur. Bu, bilgisayarınızın çökmesini ve güvenliğini sağlayan en temel mekanizmadır.
+
+### 4. Neden Önemli?
+
+Bir programcı olarak yazdığınız kodun hızı, sadece algoritmaya değil, Kernel ile ne kadar uyumlu çalıştığına da bağlıdır. Kernel; belleği (RAM) verimli dağıtmazsa veya işlemci çekirdeklerini (Core) doğru yönetmezse, elinizdeki milyarlarca transistörün hiçbir önemi kalmaz.
+
+### Sonuç: Orkestra Şefi
+
+Kernel, bilgisayarınızın görünmez kahramanıdır. Siz sadece ekranın üstündeki pikselleri görürsünüz ama arka planda Kernel; binlerce süreci koordine eden, kaynakları paylaştıran ve donanımı koruyan bir orkestra şefi gibi çalışır.
+
+Transistörler fabrikanın makineleriyse, Kernel o fabrikaya ruh veren ve onu bir "sistem" haline getiren zekadır.
+
+<Callout type="note" title="Yazar Notu">
+  Bir sonraki sefere "Memory Management" veya "Process Scheduling" gibi daha
+  derin sulara daldığımızda, Kernel'ın bu devasa fabrikayı saniyenin milyonda
+  birinde nasıl organize ettiğini daha yakından göreceğiz.
+</Callout>
+
+</Step>
+
+<Step number="3" title='Bilgisayarın Neden "Hacklenemez"? (Ya da Neden Her Uygulama Kral Olamaz?)'>
+
+Serinin önceki kısımlarında işlemcilerin devasa birer fabrika olduğunu ve Kernel’ın da bu fabrikanın mutlak yetkili müdürü olduğunu konuşmuştuk. Şimdi ise kafaları kurcalayan o kritik soruyu soralım: Madem hem sıradan bir uygulama hem de Kernel aynı Assembly komutlarını (ADD, MOV, JMP gibi) kullanıyor, o halde neden bir uygulama kendi kendine "Ben artık müdürüm" diyerek her şeyi ele geçiremiyor?
+
+Bilgisayarınızı aslında "hacklenemez" (en azından kolayca) kılan o görünmez duvarın arkasına geçelim.
+
+### 1. Aynı Alfabe, Farklı Yetki
+
+Bir virüs veya kötü amaçlı bir yazılım yazdığınızı düşünün. Bu yazılımın içindeki komutlar, Windows veya Linux’un kalbindeki komutlarla birebir aynıdır. İkisi de x86_64 dilini konuşur. Ancak fark, donanımın (CPU) bu komutları kimin söylediğine bakmasıdır.
+
+Önceki bölümde bahsettiğimiz Ring 0 (Kernel) ve Ring 3 (Uygulama) ayrımı burada devreye girer. İşlemci, o an çalışan kodun hangi yetki seviyesinde olduğunu her an bilir. Bir uygulama, Kernel’ın yetki alanındaki bir işlemi yapmaya çalıştığında işlemci araya girer.
+
+### 2. İlk Gelen Kuralı Koyar: Hafıza Yasakları
+
+Peki, kim bu bölgelerin "yasak" olduğuna karar veriyor? İşte burada Kernel’ın **"ilk açılma"** avantajı devreye girer.
+
+Bilgisayarınızı düğmesine bastığınız an, RAM (hafıza) bomboştur. İlk yüklenen şey Kernel’dır. Kernel, koltuğuna oturur oturmaz işlemciye (CPU) şunları söyler:
+
+- "Şu adres aralığı benim özel bölgem, buraya benden başkası dokunamaz."
+- "Şu bölgeler uygulamaların oyun alanı olabilir ama oradan dışarı çıkamazlar."
+
+Kernel, hafıza haritasını (Page Tables) daha uygulamalar ortada bile yokken oluşturur. Uygulamalar sahneye çıktığında, kendilerine ayrılan o dar alana hapsolmuşlardır. Bir uygulama, Kernel’ın yasakladığı bir adrese (memory access) erişmeye çalıştığında, donanım seviyesinde bir hata (Segmentation Fault) oluşur ve Kernel o uygulamayı anında "idam eder" (kapatır).
+
+### 3. Donanım Aygıtları: Neden Klavyemi Doğrudan Okuyamazsın?
+
+Uygulamaların tek engeli hafıza değildir; aynı zamanda ekran kartı, sabit disk veya klavye gibi donanım aygıtlarına da doğrudan erişemezler.
+
+x86_64 mimarisinde donanımlarla konuşmak için kullanılan özel **"Privileged Instructions" (Ayrıcalıklı Komutlar)** vardır. Örneğin, işlemciye "Şu diskten veri oku" veya "Şu USB portuna elektrik gönder" demek için kullanılan `IN` ve `OUT` gibi komutlar sadece Ring 0 seviyesinde çalışır.
+
+Eğer Ring 3 seviyesindeki (sıradan bir uygulama) bu komutları çalıştırmaya kalkarsa:
+
+1.  İşlemci bu komutu "geçersiz" sayar.
+2.  Bir donanım istisnası (Exception) fırlatır.
+3.  Kernel bu durumu yakalar ve uygulamayı durdurur.
+
+Bu yüzden bir oyun, ekrana görüntü çizmek istediğinde ekran kartına doğrudan emir veremez. Önce Kernel'ın kapısını çalar (System Call) ve "Lütfen bunu ekrana çizer misin?" diye rica eder. Kernel ise bu isteği güvenli bulursa kendi yetkisini kullanarak donanıma emri iletir.
+
+### 4. Donanımsal Koruma: MMU
+
+Bu koruma sadece bir yazılım kontrolü değildir. İşlemcinin içinde **MMU (Memory Management Unit)** denilen fiziksel bir birim vardır. Bu birim, her bir hafıza erişimini ışık hızında kontrol eder. Uygulama bir adrese gitmek istediğinde MMU araya girer ve Kernel'ın koyduğu kurallara bakarak geçiş izni verip vermeyeceğine karar verir.
+
+Eğer bu donanımsal engel olmasaydı, basit bir not defteri uygulaması bile bilgisayarınızın tüm şifrelerini RAM'den okuyabilir veya sabit diskinizdeki her şeyi tek bir komutla silebilirid.
+
+### Sonuç: Görünmez Duvarlar
+
+Bilgisayarınızın güvenliği, Kernel'ın donanımla yaptığı o gizli anlaşmaya dayanır. Uygulamalar ne kadar karmaşık olursa olsun, Kernel’ın çizdiği sınırların dışına çıkamazlar. "Hack" dediğimiz olayların çoğu, bu duvarı yıkmak değil, duvardaki bir çatlağı (yazılımsal bir hatayı) bulup oradan sızmaya çalışmaktır.
+
+Ancak temel kural değişmez: **Fabrikaya ilk giren müdür olur ve kapıları içeriden kilitler.**
+
+<Callout type="note" title="Yazar Notu">
+  İşlemciden Kernel'a, Kernel'dan güvenliğe uzanan bu seride, aslında her şeyin
+  bir "organizasyon" meselesi olduğunu gördük. Artık bir kod yazdığınızda, arka
+  planda hangi transistörlerin nasıl bir hiyerarşiyle çalıştığını biliyorsunuz!
+</Callout>
+
+</Step>

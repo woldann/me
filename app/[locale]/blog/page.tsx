@@ -22,7 +22,8 @@ export async function generateMetadata({
     title: `Blog - ${Nickname}`,
     description: "Read my latest thoughts on web development and more.",
     alternates: {
-      canonical: locale === defaultLocale ? `${url}/blog` : `${url}/${locale}/blog`,
+      canonical:
+        locale === defaultLocale ? `${url}/blog` : `${url}/${locale}/blog`,
     },
     openGraph: {
       title: `Blog - ${Nickname}`,

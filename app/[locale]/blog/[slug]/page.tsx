@@ -50,7 +50,10 @@ export async function generateMetadata({ params }: BlogPostProps) {
       description: post.meta.description,
     },
     alternates: {
-      canonical: locale === defaultLocale ? `${url}/blog/${slug}` : `${url}/${locale}/blog/${slug}`,
+      canonical:
+        locale === defaultLocale
+          ? `${url}/blog/${slug}`
+          : `${url}/${locale}/blog/${slug}`,
     },
   };
 }
