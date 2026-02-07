@@ -27,9 +27,10 @@ export async function generateMetadata({ params }: BlogPostProps) {
     return;
   }
 
-  const { FullName } = getConfig();
+  const { FullName, Languages } = getConfig();
   const url = getBaseUrl();
   const isoLocale = getIsoLocale(locale);
+  const defaultLocale = Languages[0];
 
   return {
     title: post.meta.title,
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: BlogPostProps) {
       description: post.meta.description,
     },
     alternates: {
-      canonical: `${url}/${locale}/blog/${slug}`,
+      canonical: locale === defaultLocale ? `${url}/blog/${slug}` : `${url}/${locale}/blog/${slug}`,
     },
   };
 }

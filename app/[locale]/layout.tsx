@@ -35,6 +35,8 @@ export async function generateMetadata({
     languages[iso] = `/${lang}`;
   });
 
+  const defaultLocale = Languages[0];
+
   return {
     title: {
       default: `${Nickname} - Personal Blog`,
@@ -52,7 +54,7 @@ export async function generateMetadata({
     creator: FullName,
     metadataBase: new URL(url),
     alternates: {
-      canonical: `${url}/${locale}`,
+      canonical: locale === defaultLocale ? url : `${url}/${locale}`,
       languages: languages,
     },
     openGraph: {
@@ -108,7 +110,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "tr")) {
     notFound();
   }
 

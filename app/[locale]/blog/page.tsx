@@ -14,14 +14,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { Nickname } = getConfig();
+  const { Nickname, Languages } = getConfig();
   const url = getBaseUrl();
+  const defaultLocale = Languages[0];
 
   return {
     title: `Blog - ${Nickname}`,
     description: "Read my latest thoughts on web development and more.",
     alternates: {
-      canonical: `${url}/${locale}/blog`,
+      canonical: locale === defaultLocale ? `${url}/blog` : `${url}/${locale}/blog`,
     },
     openGraph: {
       title: `Blog - ${Nickname}`,
