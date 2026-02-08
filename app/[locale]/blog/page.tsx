@@ -5,8 +5,8 @@ import { TypographyH1 } from "@/components/ui/typography";
 import { getTranslations } from "next-intl/server";
 import { getConfig } from "@/lib/config";
 import { SiteFooter } from "@/components/layout/site-footer";
-
 import { getBaseUrl } from "@/lib/base-url";
+import { defaultLocale } from "@/lib/locales";
 
 export async function generateMetadata({
   params,
@@ -14,9 +14,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { Nickname, Languages } = getConfig();
+  const { Nickname } = getConfig();
   const url = getBaseUrl();
-  const defaultLocale = Languages[0];
 
   return {
     title: `Blog - ${Nickname}`,

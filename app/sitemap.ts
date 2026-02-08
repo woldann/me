@@ -1,17 +1,15 @@
 import { MetadataRoute } from "next";
-import { getConfig } from "@/lib/config";
 import { getPosts } from "@/lib/blog";
 import { getBaseUrl } from "@/lib/base-url";
 
+import { defaultLocale, locales } from "@/lib/locales";
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const config = getConfig();
   const baseUrl = getBaseUrl();
   const posts = getPosts();
 
-  const defaultLocale = config.Languages[0];
-
   // Static routes (Homepage & Blog Index)
-  const staticRoutes = config.Languages.flatMap((lang) => {
+  const staticRoutes = locales.flatMap((lang) => {
     const localePath = lang === defaultLocale ? "" : `/${lang}`;
 
     return [

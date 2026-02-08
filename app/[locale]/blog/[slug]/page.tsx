@@ -12,8 +12,8 @@ import { getConfig } from "@/lib/config";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { getTranslations } from "next-intl/server";
 import { getIsoLocale } from "@/lib/iso-locale";
-
 import { getBaseUrl } from "@/lib/base-url";
+import { defaultLocale } from "@/lib/locales";
 
 interface BlogPostProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -27,10 +27,9 @@ export async function generateMetadata({ params }: BlogPostProps) {
     return;
   }
 
-  const { FullName, Languages } = getConfig();
+  const { FullName } = getConfig();
   const url = getBaseUrl();
   const isoLocale = getIsoLocale(locale);
-  const defaultLocale = Languages[0];
 
   return {
     title: post.meta.title,
