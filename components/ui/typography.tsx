@@ -13,7 +13,7 @@ export function TypographyH1({
   return (
     <Component
       className={cn(
-        "scroll-m-20 font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-foreground font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ export function TypographyH2({
   return (
     <Component
       className={cn(
-        "scroll-m-20 border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 text-foreground border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
       {...props}
@@ -45,7 +45,23 @@ export function TypographyH3({
   return (
     <Component
       className={cn(
-        "scroll-m-20 font-serif text-2xl font-semibold tracking-tight",
+        "scroll-m-20 text-foreground font-serif text-2xl font-semibold tracking-tight",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export function TypographyH4({
+  className,
+  as: Component = "h4",
+  ...props
+}: TypographyProps) {
+  return (
+    <Component
+      className={cn(
+        "scroll-m-20 text-foreground font-serif text-2xl font-bold tracking-tight",
         className
       )}
       {...props}
@@ -61,7 +77,7 @@ export function TypographyP({
   return (
     <Component
       className={cn(
-        "text-muted-foreground font-serif text-lg leading-7 [&:not(:first-child)]:mt-6",
+        "text-foreground font-serif text-lg leading-7 [&:not(:first-child)]:mt-6",
         className
       )}
       {...props}
@@ -77,7 +93,7 @@ export function TypographyLead({
   return (
     <Component
       className={cn(
-        "text-muted-foreground font-serif text-xl leading-8",
+        "text-foreground font-serif text-xl leading-8",
         className
       )}
       {...props}
@@ -93,10 +109,11 @@ export function TypographyBlockquote({
   return (
     <Component
       className={cn(
-        "text-muted-foreground mt-6 border-l-2 pl-6 font-serif italic",
+        "text-foreground mt-6 border-l-2 pl-6 font-serif italic",
         className
       )}
       {...props}
     />
   );
 }
+

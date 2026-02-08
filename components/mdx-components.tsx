@@ -32,11 +32,11 @@ import {
   TypographyH1,
   TypographyH2,
   TypographyH3,
+  TypographyH4,
   TypographyP,
 } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
 import React from "react";
 
 const DynamicIconRenderer = ({
@@ -242,12 +242,9 @@ export const mdxComponents = {
     />
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4
+    <TypographyH4
       {...props}
-      className={cn(
-        "mt-8 mb-4 scroll-m-20 text-lg font-semibold tracking-tight",
-        className
-      )}
+      className={cn("mt-8 mb-4", className)}
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (

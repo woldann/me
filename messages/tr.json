@@ -21,6 +21,7 @@
   },
   "Theme": {
     "title": "Görünüm",
+    "languages": "Diller",
     "light": "Aydınlık",
     "dark": "Karanlık",
     "system": "Sistem"

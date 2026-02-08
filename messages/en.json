@@ -21,6 +21,7 @@
   },
   "Theme": {
     "title": "Appearance",
+    "languages": "Languages",
     "light": "Light",
     "dark": "Dark",
     "system": "System"
