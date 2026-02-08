@@ -70,7 +70,9 @@ export function SiteSidebar({
 
         <div className="mt-auto px-6 pb-8">
           <div className="border-t pt-8">
-            <p className="text-muted-foreground mb-4 text-sm font-medium uppercase tracking-wider">{tTheme("languages")}</p>
+            <p className="text-muted-foreground mb-4 text-sm font-medium tracking-wider uppercase">
+              {tTheme("languages")}
+            </p>
             <div className="flex flex-wrap gap-2">
               {locales.map((l) => (
                 <Link
@@ -91,7 +93,7 @@ export function SiteSidebar({
           </div>
 
           <div className="mt-4 pt-4">
-            <p className="text-muted-foreground mb-4 text-sm font-medium uppercase tracking-wider">
+            <p className="text-muted-foreground mb-4 text-sm font-medium tracking-wider uppercase">
               {tTheme("title")}
             </p>
             <div className="flex flex-wrap gap-2">

@@ -13,7 +13,7 @@ export function TypographyH1({
   return (
     <Component
       className={cn(
-        "scroll-m-20 text-foreground font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "text-foreground scroll-m-20 font-serif text-4xl font-extrabold tracking-tight lg:text-5xl",
         className
       )}
       {...props}
@@ -29,7 +29,7 @@ export function TypographyH2({
   return (
     <Component
       className={cn(
-        "scroll-m-20 text-foreground border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
+        "text-foreground scroll-m-20 border-b pb-2 font-serif text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
       {...props}
@@ -45,7 +45,7 @@ export function TypographyH3({
   return (
     <Component
       className={cn(
-        "scroll-m-20 text-foreground font-serif text-2xl font-semibold tracking-tight",
+        "text-foreground scroll-m-20 font-serif text-2xl font-semibold tracking-tight",
         className
       )}
       {...props}
@@ -61,7 +61,7 @@ export function TypographyH4({
   return (
     <Component
       className={cn(
-        "scroll-m-20 text-foreground font-serif text-2xl font-bold tracking-tight",
+        "text-foreground scroll-m-20 font-serif text-2xl font-bold tracking-tight",
         className
       )}
       {...props}
@@ -92,10 +92,7 @@ export function TypographyLead({
 }: TypographyProps) {
   return (
     <Component
-      className={cn(
-        "text-foreground font-serif text-xl leading-8",
-        className
-      )}
+      className={cn("text-foreground font-serif text-xl leading-8", className)}
       {...props}
     />
   );
@@ -116,4 +113,3 @@ export function TypographyBlockquote({
     />
   );
 }
-

@@ -242,10 +242,7 @@ export const mdxComponents = {
     />
   ),
   h4: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <TypographyH4
-      {...props}
-      className={cn("mt-8 mb-4", className)}
-    />
+    <TypographyH4 {...props} className={cn("mt-8 mb-4", className)} />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
     <TypographyP

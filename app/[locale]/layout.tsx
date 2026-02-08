@@ -124,12 +124,7 @@ export default async function RootLayout({
         className={`${inter.variable} ${merriweather.variable} bg-background text-foreground font-sans antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
         </NextIntlClientProvider>
