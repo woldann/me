@@ -66,7 +66,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: "/icon.ico",
+          url: "/favicon.ico",
           alt: `${Nickname} - Personal Blog`,
         },
       ],
@@ -89,7 +89,7 @@ export async function generateMetadata({
       },
     },
     icons: {
-      icon: "/icon.ico",
+      icon: "/favicon.ico",
     },
   };
 }
