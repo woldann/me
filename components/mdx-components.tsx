@@ -52,17 +52,17 @@ const Icon = (props: { name: string } & LucideProps) => (
 );
 
 const ComparisonTable = ({
-  headers,
-  rows,
+  headers = [],
+  rows = [],
 }: {
-  headers: string[];
-  rows: (string | boolean)[][];
+  headers?: string[];
+  rows?: (string | boolean)[][];
 }) => (
   <div className="my-8 overflow-hidden rounded-xl border shadow-sm">
     <Table>
       <TableHeader>
         <TableRow className="bg-secondary/30">
-          {headers.map((header, i) => (
+          {headers?.map((header, i) => (
             <TableHead key={i} className="text-foreground font-bold">
               {header}
             </TableHead>
@@ -70,9 +70,9 @@ const ComparisonTable = ({
         </TableRow>
       </TableHeader>
       <TableBody>
-        {rows.map((row, i) => (
+        {rows?.map((row, i) => (
           <TableRow key={i}>
-            {row.map((cell, j) => (
+            {row?.map((cell, j) => (
               <TableCell key={j} className="text-muted-foreground font-medium">
                 {typeof cell === "boolean" ? (
                   cell ? (
@@ -107,12 +107,12 @@ const BioHero = ({
   experience,
   focus,
   tagline,
-  labels,
+  labels = { experience: "", years: "", focus: "" },
 }: {
-  experience: string;
-  focus: string;
-  tagline: string;
-  labels: {
+  experience?: string;
+  focus?: string;
+  tagline?: string;
+  labels?: {
     experience: string;
     years: string;
     focus: string;
@@ -127,10 +127,10 @@ const BioHero = ({
           </div>
           <div>
             <div className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-              {labels.experience}
+              {labels?.experience}
             </div>
             <div className="font-serif text-lg">
-              {experience} {labels.years}
+              {experience} {labels?.years}
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@ const BioHero = ({
           </div>
           <div>
             <div className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
-              {labels.focus}
+              {labels?.focus}
             </div>
             <div className="text-sm leading-tight font-medium text-balance">
               {focus}
@@ -178,12 +178,12 @@ const ProjectCard = ({
   title,
   repo,
   description,
-  tech,
+  tech = [],
 }: {
-  title: string;
-  repo: string;
-  description: string;
-  tech: string[];
+  title?: string;
+  repo?: string;
+  description?: string;
+  tech?: string[];
 }) => (
   <Card className="group hover:border-primary/50 my-6 transition-all duration-300 hover:shadow-md">
     <CardHeader>
@@ -211,7 +211,7 @@ const ProjectCard = ({
     </CardContent>
     <CardFooter>
       <div className="flex flex-wrap gap-1.5">
-        {tech.map((t) => (
+        {tech?.map((t) => (
           <Badge
             key={t}
             variant="secondary"
